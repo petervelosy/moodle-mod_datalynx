@@ -52,9 +52,6 @@ abstract class mod_datalynx_filter_base_form extends dynamic_form {
     }
 
     public function set_data_for_dynamic_submission(): void {
-        // Since this runs after definition(), we are not using it, as the form's composition already depends on the data loaded.
-        global $DB;
-
         $datalynx_id = $this->_ajaxformdata["d"];
         $filter_id = $this->_ajaxformdata["fid"];
 
@@ -74,14 +71,6 @@ abstract class mod_datalynx_filter_base_form extends dynamic_form {
     }
 
     public function process_dynamic_submission() {
-
-        $datalynx_id = $this->_ajaxformdata["d"];
-        $filter_id = $this->_ajaxformdata["fid"];
-
-        if ($datalynx_id == null || $filter_id == null) {
-            return;
-        }
-
         $this->_df = \mod_datalynx\datalynx::get_datalynx_by_instance($datalynx_id);
         $fm = $this->_df->get_filter_manager();
         $this->_filter = $fm->get_filter_from_id($filter_id);
